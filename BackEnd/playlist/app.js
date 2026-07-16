@@ -14,7 +14,7 @@ const cors = require('cors')
 const { db } = require('./models')
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({origin: 'https://playlist-client-sigma.vercel.app'}))
 
 app.use('/playlists', playlistRoutes)
 app.use('/songs', songRoutes)
