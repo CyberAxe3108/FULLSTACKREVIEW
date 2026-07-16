@@ -63,6 +63,17 @@ router.post('/:playlistId/songs', validateSong, async (req, res, next) => {
     }
 })
 
+router.patch('/:id', validatePlaylist, async (req, res, next) =>{
+    try{
+        const updatedPlaylist = await Playlist.findByPk(req.params.id)
+        if(!updatedPlaylist) return res.status(404).json({error: "Playlist not found "})
+        await updatedPlaylist.update(req.body)
+        res.json(updatedPlaylist)
+    }catch(err){
+        next(err)
+    }
+})
+
 router.delete('/:id', async (req, res, next) => {
     try{
         const deleted = await Playlist.destroy({where: {id: req.params.id}})
